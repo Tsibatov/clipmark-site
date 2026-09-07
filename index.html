@@ -1,0 +1,124 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>ClipMark for macOS</title>
+  <meta name="description" content="ClipMark is a macOS menu bar clipboard manager with screenshot capture and lightweight annotation tools.">
+  <style>
+    :root {
+      color-scheme: light dark;
+      --bg: #0f1115;
+      --panel: #171a21;
+      --text: #f4f5f7;
+      --muted: #a9b0bd;
+      --accent: #4f7cff;
+      --border: #2a2f3a;
+    }
+    body {
+      margin: 0;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.55;
+    }
+    main {
+      max-width: 920px;
+      margin: 0 auto;
+      padding: 72px 24px;
+    }
+    header {
+      margin-bottom: 44px;
+    }
+    h1 {
+      margin: 0 0 12px;
+      font-size: clamp(44px, 7vw, 76px);
+      line-height: 1;
+      letter-spacing: 0;
+    }
+    h2 {
+      margin: 40px 0 12px;
+      font-size: 26px;
+    }
+    p {
+      margin: 0 0 16px;
+      color: var(--muted);
+      font-size: 18px;
+    }
+    .tagline {
+      max-width: 700px;
+      font-size: 22px;
+      color: var(--text);
+    }
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
+      gap: 14px;
+      margin-top: 24px;
+    }
+    .card {
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      background: var(--panel);
+      padding: 18px;
+    }
+    .card strong {
+      display: block;
+      margin-bottom: 8px;
+      font-size: 17px;
+    }
+    a {
+      color: var(--accent);
+    }
+    footer {
+      margin-top: 56px;
+      padding-top: 24px;
+      border-top: 1px solid var(--border);
+      color: var(--muted);
+      font-size: 14px;
+    }
+  </style>
+</head>
+<body>
+  <main>
+    <header>
+      <h1>ClipMark</h1>
+      <p class="tagline">A macOS menu bar clipboard manager with fast screenshot capture and lightweight markup tools.</p>
+    </header>
+
+    <section>
+      <h2>Clipboard history and capture in one place</h2>
+      <p>ClipMark keeps recent clipboard items close at hand, lets you search copied text, pin important entries, and bring back anything you copied earlier.</p>
+      <p>When you need to capture part of your screen, ClipMark lets you select an area, annotate it, blur sensitive details, crop, copy, or save the result.</p>
+    </section>
+
+    <section class="grid" aria-label="Features">
+      <div class="card">
+        <strong>Menu bar history</strong>
+        <span>Open clipboard history from the macOS menu bar or with a global shortcut.</span>
+      </div>
+      <div class="card">
+        <strong>Screenshot capture</strong>
+        <span>Select an area of the screen and edit it immediately.</span>
+      </div>
+      <div class="card">
+        <strong>Markup tools</strong>
+        <span>Use pen, rectangle, arrow, text, blur, and crop tools for quick visual notes.</span>
+      </div>
+      <div class="card">
+        <strong>Local by design</strong>
+        <span>Clipboard history and screenshots are stored locally on your Mac.</span>
+      </div>
+    </section>
+
+    <section>
+      <h2>Support</h2>
+      <p>Need help? Visit <a href="./support.html">ClipMark Support</a> or read the <a href="./privacy.html">Privacy Policy</a>.</p>
+    </section>
+
+    <footer>
+      Copyright &copy; 2026 Tim Mac. All rights reserved.
+    </footer>
+  </main>
+</body>
+</html>
