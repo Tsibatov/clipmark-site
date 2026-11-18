@@ -3,122 +3,128 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>ClipMark for macOS</title>
-  <meta name="description" content="ClipMark is a macOS menu bar clipboard manager with screenshot capture and lightweight annotation tools.">
+  <meta name="theme-color" content="#fafbfc">
+  <meta name="description" content="Find an earlier copy, capture part of your screen, and mark it up right where you work. ClipMark keeps it all on your Mac.">
+  <title>ClipMark — Clipboard history and screenshot markup for Mac</title>
+  <link rel="icon" href="./assets/clipmark-icon.png" type="image/png">
   <style>
     :root {
-      color-scheme: light dark;
-      --bg: #0f1115;
-      --panel: #171a21;
-      --text: #f4f5f7;
-      --muted: #a9b0bd;
-      --accent: #4f7cff;
-      --border: #2a2f3a;
+      color-scheme: light;
+      --ink: #131a25;
+      --muted: #4e5b6d;
+      --blue: #214fc5;
+      --line: #dce2eb;
+      font: 100%/1.5 -apple-system, BlinkMacSystemFont, "Helvetica Neue", sans-serif;
+      color: var(--ink);
+      background: #fafbfc;
     }
-    body {
-      margin: 0;
-      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
-      background: var(--bg);
-      color: var(--text);
-      line-height: 1.55;
+    * { box-sizing: border-box; }
+    body { margin: 0; }
+    .wrap { width: min(1220px, 91%); margin-inline: auto; }
+    a { color: var(--blue); text-underline-offset: .22em; }
+    a:focus-visible { outline: 3px solid var(--blue); outline-offset: 5px; }
+    header { border-bottom: 1px solid var(--line); }
+    header .wrap, nav, .brand, footer .wrap, .privacy, footer nav { display: flex; align-items: center; }
+    header .wrap { min-height: 76px; justify-content: space-between; gap: 1rem; }
+    .brand { gap: .6rem; color: var(--ink); font-size: 1.32rem; font-weight: 720; letter-spacing: -.045em; }
+    .brand img { width: 37px; height: 37px; }
+    nav { gap: clamp(1rem, 3vw, 2.2rem); }
+    nav a { color: var(--muted); text-decoration: none; font-size: .91rem; font-weight: 550; }
+    nav a:hover { color: var(--blue); text-decoration: underline; }
+    .hero { display: grid; grid-template-columns: 1.02fr 1fr; gap: clamp(1.8rem, 4vw, 4.5rem); align-items: center; padding-block: clamp(3rem, 6vw, 5.75rem); }
+    h1, h2, p { margin: 0; }
+    .platform { color: var(--muted); font-size: .95rem; font-weight: 600; margin-bottom: 1.25rem; }
+    h1 { font-size: clamp(3.25rem, 4.8vw, 4.65rem); line-height: 1.02; letter-spacing: -.045em; text-wrap: balance; }
+    h1 span { display: block; color: var(--blue); }
+    .intro { max-width: 32rem; color: var(--muted); font-size: clamp(1.05rem, 1.44vw, 1.22rem); line-height: 1.55; margin-top: 1.5rem; }
+    .download { display: inline-flex; align-items: center; gap: .85rem; padding: .84rem 1.15rem; margin-top: 1.8rem; color: white; background: var(--blue); border-radius: .75rem; text-decoration: none; font-weight: 625; }
+    .download::after { content: "↗" / ""; font-size: 1.2em; line-height: 1; }
+    .download:hover { background: #163ba1; }
+    .hero-visual { display: grid; place-items: center; position: relative; isolation: isolate; overflow: hidden; background: linear-gradient(145deg, #e8effa 0%, #d7e4fa 44%, #b3c9ec 100%); border-radius: 1.75rem; padding: clamp(2rem, 4vw, 3.9rem) 1rem; }
+    .hero-visual::before, .hero-visual::after { content: ""; position: absolute; width: 75%; aspect-ratio: 6/7; border: 1px solid rgba(255,255,255,.85); border-radius: 1.15rem; z-index: -1; }
+    .hero-visual::before { transform: rotate(-13deg); background: #ffffff29; }
+    .hero-visual::after { transform: rotate(-6deg); background: #ffffff36; }
+    .hero-visual img { width: min(76%, 347px); height: auto; display: block; border-radius: .85rem; box-shadow: 0 16px 34px -10px #24395855, 0 0 0 1px #33496e15; }
+    .examples { display: grid; grid-template-columns: 1fr 1fr; gap: clamp(1.6rem, 4vw, 4rem); padding-block: 2.6rem 4rem; border-top: 1px solid var(--line); }
+    article { min-width: 0; scroll-margin-top: 1.5rem; }
+    .caption { display: flex; align-items: center; justify-content: space-between; gap: 1rem; margin-bottom: 1rem; }
+    h2 { font-size: clamp(1.6rem, 2.2vw, 2.15rem); line-height: 1.13; letter-spacing: -.045em; }
+    kbd { white-space: nowrap; font: 600 .94rem/1.4 -apple-system, sans-serif; letter-spacing: .02em; padding: .18rem .57rem; border: 1px solid #bec8d5; border-radius: .4rem; background: white; }
+    article p { color: var(--muted); max-width: 51ch; margin-bottom: 1.35rem; }
+    .detail { display: grid; place-items: center; border-radius: 1.1rem; overflow: hidden; aspect-ratio: 1.86; }
+    .search { background: #eaf0fa; padding: 4% 8%; }
+    .search img { width: 100%; height: auto; border-radius: .65rem; box-shadow: 0 .5rem 1.8rem #253d6520; }
+    .markup { background: #dcdfde; }
+    .markup img { width: 100%; height: 100%; min-height: 0; object-fit: contain; }
+    footer { border-top: 1px solid var(--line); padding-block: 1.65rem; }
+    footer .wrap { justify-content: space-between; gap: 1.25rem; flex-wrap: wrap; }
+    .privacy { gap: .65rem; font-size: .96rem; font-weight: 550; }
+    .privacy::before { content: ""; display: block; width: .55rem; height: .55rem; border: 2px solid var(--blue); border-radius: 50%; }
+    @media (max-width: 840px) {
+      .hero { grid-template-columns: 1fr 1fr; gap: 1.5rem; }
+      h1 { font-size: clamp(2.7rem, 5.5vw, 3.35rem); }
+      .hero-visual { padding: 2rem .5rem; }
+      .hero-visual img { width: 83%; }
+      .examples { gap: 1.5rem; }
     }
-    main {
-      max-width: 920px;
-      margin: 0 auto;
-      padding: 72px 24px;
-    }
-    header {
-      margin-bottom: 44px;
-    }
-    h1 {
-      margin: 0 0 12px;
-      font-size: clamp(44px, 7vw, 76px);
-      line-height: 1;
-      letter-spacing: 0;
-    }
-    h2 {
-      margin: 40px 0 12px;
-      font-size: 26px;
-    }
-    p {
-      margin: 0 0 16px;
-      color: var(--muted);
-      font-size: 18px;
-    }
-    .tagline {
-      max-width: 700px;
-      font-size: 22px;
-      color: var(--text);
-    }
-    .grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
-      gap: 14px;
-      margin-top: 24px;
-    }
-    .card {
-      border: 1px solid var(--border);
-      border-radius: 8px;
-      background: var(--panel);
-      padding: 18px;
-    }
-    .card strong {
-      display: block;
-      margin-bottom: 8px;
-      font-size: 17px;
-    }
-    a {
-      color: var(--accent);
-    }
-    footer {
-      margin-top: 56px;
-      padding-top: 24px;
-      border-top: 1px solid var(--border);
-      color: var(--muted);
-      font-size: 14px;
+    @media (max-width: 650px) {
+      .wrap { width: calc(100% - 2.5rem); }
+      header .wrap { min-height: 62px; }
+      header nav a[href^="#"] { display: none; }
+      .hero, .examples { grid-template-columns: 1fr; }
+      .hero { padding-block: 2.5rem; gap: 2rem; }
+      h1 { font-size: clamp(2.65rem, 10vw, 3.6rem); }
+      .intro { margin-top: 1rem; }
+      .download { margin-top: 1.25rem; }
+      .hero-visual { padding: 1.7rem 1rem; }
+      .hero-visual img { width: min(81%, 310px); }
+      .examples { padding-block: 2rem 2.6rem; gap: 2.5rem; }
+      .caption { margin-bottom: .65rem; }
+      .privacy { font-size: .9rem; }
     }
   </style>
 </head>
 <body>
-  <main>
-    <header>
-      <h1>ClipMark</h1>
-      <p class="tagline">A macOS menu bar clipboard manager with fast screenshot capture and lightweight markup tools.</p>
-    </header>
-
-    <section>
-      <h2>Clipboard history and capture in one place</h2>
-      <p>ClipMark keeps recent clipboard items close at hand, lets you search copied text, pin important entries, and bring back anything you copied earlier.</p>
-      <p>When you need to capture part of your screen, ClipMark lets you select an area, annotate it, blur sensitive details, crop, copy, or save the result.</p>
-    </section>
-
-    <section class="grid" aria-label="Features">
-      <div class="card">
-        <strong>Menu bar history</strong>
-        <span>Open clipboard history from the macOS menu bar or with a global shortcut.</span>
+  <header>
+    <div class="wrap">
+      <div class="brand"><img src="./assets/clipmark-icon.png" alt="" width="128" height="128">ClipMark</div>
+      <nav aria-label="Main">
+        <a href="#history">Clipboard history</a>
+        <a href="#capture">Screenshot markup</a>
+        <a href="./support.html">Support</a>
+      </nav>
+    </div>
+  </header>
+  <main class="wrap">
+    <section class="hero" aria-labelledby="hero-title">
+      <div>
+        <p class="platform">A menu bar app for macOS</p>
+        <h1 id="hero-title">Find what you copied. <span>Mark up what you capture.</span></h1>
+        <p class="intro">Bring back the address you copied a minute ago. Grab part of your screen and mark the entrance before you send it.</p>
+        <a class="download" href="https://apps.apple.com/us/app/clipmark/id6768452066?mt=12">Download on the Mac App Store</a>
       </div>
-      <div class="card">
-        <strong>Screenshot capture</strong>
-        <span>Select an area of the screen and edit it immediately.</span>
-      </div>
-      <div class="card">
-        <strong>Markup tools</strong>
-        <span>Use pen, rectangle, arrow, text, blur, and crop tools for quick visual notes.</span>
-      </div>
-      <div class="card">
-        <strong>Local by design</strong>
-        <span>Clipboard history and screenshots are stored locally on your Mac.</span>
+      <div class="hero-visual">
+        <img src="./assets/clipboard-history.png" width="720" height="840" fetchpriority="high" alt="ClipMark history with the meeting address just below the latest copy, “Doors open at 10:30.”">
       </div>
     </section>
-
-    <section>
-      <h2>Support</h2>
-      <p>Need help? Visit <a href="./support.html">ClipMark Support</a> or read the <a href="./privacy.html">Privacy Policy</a>.</p>
+    <section class="examples" aria-label="How ClipMark works">
+      <article id="history">
+        <div class="caption"><h2>Find an earlier copy.</h2><kbd aria-label="Shift Command V">⇧⌘V</kbd></div>
+        <p>Open history and type “alder”. Click the address to copy it again, ready to paste into your message.</p>
+        <div class="detail search"><img src="./assets/address-search.png" width="1080" height="462" loading="lazy" alt="Searching for alder finds the clipboard entry Alder Hall, 18 Linden Lane."></div>
+      </article>
+      <article id="capture">
+        <div class="caption"><h2>Show the exact spot.</h2><kbd aria-label="Shift Command 2">⇧⌘2</kbd></div>
+        <p>Drag across the map, then add an arrow right beside the selection. Copy the marked-up shot or save a PNG.</p>
+        <div class="detail markup"><img src="./assets/entrance-markup.png" width="1070" height="768" loading="lazy" alt="The inline editor shows a blue arrow pointing to the entrance of Alder Hall, with the copy button below."></div>
+      </article>
     </section>
-
-    <footer>
-      Copyright &copy; 2026 Tim Mac. All rights reserved.
-    </footer>
   </main>
+  <footer>
+    <div class="wrap">
+      <p class="privacy">Your clipboard history stays on your Mac.</p>
+      <nav aria-label="Help and privacy"><a href="./support.html">Support</a><a href="./privacy.html">Privacy Policy</a></nav>
+    </div>
+  </footer>
 </body>
 </html>
